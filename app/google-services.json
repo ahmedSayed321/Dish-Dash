@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "982858819255",
+    "project_id": "dishdash-c8011",
+    "storage_bucket": "dishdash-c8011.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982858819255:android:12a9cf2a23ba6cbe948f32",
+        "android_client_info": {
+          "package_name": "com.example.dishdash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk63wesi_jF5s1zI0zWBvtDDj269IlhA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
