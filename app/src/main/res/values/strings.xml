@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Dish Dash</string>
     <string name="dish_dash">Dish Dash</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or_login_with">or login with</string>
+    <string name="login">Login</string>
+    <string name="google">Google</string>
+    <string name="guest">Guest</string>
+    <string name="continue_as_a_guest">Continue as a guest</string>
+    <string name="don_t_have_any_accounts_yet">Don\'t have any accounts yet?</string>
+    <string name="signup">SignUp</string>
+    <string name="continue_with_google">Continue with Google</string>
 </resources>
