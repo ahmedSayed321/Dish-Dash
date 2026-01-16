@@ -1,4 +1,5 @@
 <resources>
+    <string name="default_web_client_id">982858819255-cuuo9h6niakl586th28136kok0ns5lu0.apps.googleusercontent.com</string>
     <string name="app_name">Dish Dash</string>
     <string name="dish_dash">Dish Dash</string>
     <string name="email">Email</string>
