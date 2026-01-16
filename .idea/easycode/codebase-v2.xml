@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/app/src/androidTest/java/com/example/dishdash/ExampleInstrumentedTest.java;C:/Users/El-Wattaneya/DishDash/app/src/main/java/com/example/dishdash/auth/SignInActivity.java;C:/Users/El-Wattaneya/DishDash/app/src/main/java/com/example/dishdash/auth/SignUpActivity.java;C:/Users/El-Wattaneya/DishDash/app/src/main/java/com/example/dishdash/splash_screen/SplashActivity.java;C:/Users/El-Wattaneya/DishDash/app/src/main/java/com/example/dishdash/MainActivity.java;C:/Users/El-Wattaneya/DishDash/app/src/main/res/raw/food_carousel.json;C:/Users/El-Wattaneya/DishDash/app/src/main/res/raw/hamburger.json;C:/Users/El-Wattaneya/DishDash/app/src/main/res/raw/pizza_slices.json;C:/Users/El-Wattaneya/DishDash/app/src/main/res/raw/recipe_book.json;C:/Users/El-Wattaneya/DishDash/app/src/test/java/com/example/dishdash/ExampleUnitTest.java" />
+  </component>
+</project>
