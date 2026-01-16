@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
+import com.example.dishdash.auth.SignInActivity;
 
 public class SplashActivity extends AppCompatActivity {
     TextView splashText;
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         splashText.startAnimation(animation);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
             startActivity(intent);
             finish();
         }, 5000);
