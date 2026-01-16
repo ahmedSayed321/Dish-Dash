@@ -14,4 +14,12 @@
     <string name="don_t_have_any_accounts_yet">Don\'t have any accounts yet?</string>
     <string name="signup">SignUp</string>
     <string name="continue_with_google">Continue with Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="by_continuing_you_agree_to_our">By continuing, you agree to our</string>
+    <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy.</string>
+    <string name="register">Register</string>
+    <string name="back">Back</string>
 </resources>
