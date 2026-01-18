@@ -16,9 +16,16 @@ public class ValidationUtils {
                     ".{8,}" +
                     "$");
 
+
     public static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        if (TextUtils.isEmpty(email)) return false;
+
+        String emailRegex =
+                "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.(com|net|org|edu)$";
+
+        return email.matches(emailRegex);
     }
+
 
     public static boolean isValidPassword(String password) {
         return !TextUtils.isEmpty(password) && PASSWORD_PATTERN.matcher(password).matches();
