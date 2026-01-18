@@ -39,7 +39,10 @@ dependencies {
     implementation libs.firebase.auth
     implementation libs.credentials
     implementation libs.credentials.play.services.auth
+    implementation libs.firebase.firestore
+
     implementation 'com.google.android.gms:play-services-auth:21.0.1'
+    implementation 'com.google.android.material:material:1.11.0'
 
     implementation libs.googleid
     testImplementation libs.junit
