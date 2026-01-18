@@ -1,4 +1,4 @@
-package com.example.dishdash.auth;
+package com.example.dishdash.auth.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,25 +13,27 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
+import com.example.dishdash.auth.presentation.presenter.AuthPresenter;
+import com.example.dishdash.auth.presentation.presenter.AuthPresenterImpl;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements AuthView {
 
     EditText email, password;
     Button loginBtn;
     LinearLayout googleLogin, guest;
     TextView signUpText;
+    AuthPresenter authPresenter;
+    LottieAnimationView loadingAnimation;
 
     FirebaseAuth mAuth;
     GoogleSignInClient googleSignInClient;
@@ -50,6 +52,8 @@ public class SignInActivity extends AppCompatActivity {
         guest = findViewById(R.id.guestLoginLayout);
         signUpText = findViewById(R.id.signupTextBtn);
 
+        loadingAnimation = findViewById(R.id.loadingAnimation2);
+        authPresenter = new AuthPresenterImpl(this);
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -78,7 +82,8 @@ public class SignInActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn(email.getText().toString().trim(), password.getText().toString().trim());
+                authPresenter.signIn(email.getText().toString().trim(), password.getText().toString().trim());
+               // signIn(email.getText().toString().trim(), password.getText().toString().trim());
             }
         });
     }
@@ -91,54 +96,65 @@ public class SignInActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                authPresenter.googleSignIn(account.getIdToken());
+                //firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 Toast.makeText(this, "Google Sign In Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+    @Override
+    public void showLoading() {
+        loadingAnimation.setVisibility(View.VISIBLE);
+        loadingAnimation.playAnimation();
     }
 
-    private void signIn(String email, String password) {
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Email and password required", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                        FirebaseUser user = mAuth.getCurrentUser();
-
-                        Toast.makeText(this,
-                                "Sign in successful\nUser ID: " + user.getUid(),
-                                Toast.LENGTH_SHORT).show();
-
-                         startActivity(new Intent(this, MainActivity.class));
-                         finish();
-
-                    } else {
-
-                        Toast.makeText(this,
-                                "Error: " + task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+    @Override
+    public void hideLoading() {
+        loadingAnimation.cancelAnimation();
+        loadingAnimation.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showEmailError(String message) {
+        email.setError(message);
+        email.requestFocus();
+    }
+
+    @Override
+    public void showPasswordError(String message) {
+       password.setError(message);
+       password.requestFocus();
+    }
+
+    @Override
+    public void showConfirmPasswordError(String message) {
+
+    }
+
+    @Override
+    public void showFirstNameError(String message) {
+
+    }
+
+    @Override
+    public void showLastNameError(String message) {
+
+    }
+
+    @Override
+    public void onAuthSuccess() {
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onAuthError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+
+    }
 }

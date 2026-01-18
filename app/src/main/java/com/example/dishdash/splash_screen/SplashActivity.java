@@ -1,6 +1,5 @@
 package com.example.dishdash.splash_screen;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,9 +11,8 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
-import com.example.dishdash.auth.SignInActivity;
+import com.example.dishdash.auth.presentation.view.SignInActivity;
 
 public class SplashActivity extends AppCompatActivity {
     TextView splashText;

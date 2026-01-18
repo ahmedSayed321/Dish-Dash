@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DishDash" >
         <activity
-            android:name=".auth.SignUpActivity"
+            android:name=".auth.presentation.view.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.SignInActivity"
+            android:name=".auth.presentation.view.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".splash_screen.SplashActivity"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".auth.SignInActivity">
+    tools:context=".auth.presentation.view.SignInActivity">
 
     <TextView
         android:id="@+id/tvLogin"
@@ -54,7 +54,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:textColorHint="@color/semi_grey" /> <!-- نخلي الخلفية null عشان التصميم من TextInputLayout -->
+                android:textColorHint="@color/semi_grey" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,6 +63,7 @@
             android:id="@+id/passTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:hint="@string/enter_your_password"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
@@ -224,6 +225,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/textView3" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
