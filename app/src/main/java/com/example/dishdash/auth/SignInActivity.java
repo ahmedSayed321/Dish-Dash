@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity {
@@ -73,6 +74,13 @@ public class SignInActivity extends AppCompatActivity {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn(email.getText().toString().trim(), password.getText().toString().trim());
+            }
+        });
     }
 
     @Override
@@ -103,4 +111,34 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void signIn(String email, String password) {
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Email and password required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                        FirebaseUser user = mAuth.getCurrentUser();
+
+                        Toast.makeText(this,
+                                "Sign in successful\nUser ID: " + user.getUid(),
+                                Toast.LENGTH_SHORT).show();
+
+                         startActivity(new Intent(this, MainActivity.class));
+                         finish();
+
+                    } else {
+
+                        Toast.makeText(this,
+                                "Error: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 }
