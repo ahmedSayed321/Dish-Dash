@@ -48,6 +48,7 @@ dependencies {
     implementation libs.retrofit
     implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
     implementation libs.glide
+    implementation libs.cardview
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
     implementation libs.googleid

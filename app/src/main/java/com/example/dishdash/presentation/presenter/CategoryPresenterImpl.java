@@ -1,13 +1,13 @@
-package com.example.dishdash.category.presentation.presenter;
+package com.example.dishdash.presentation.presenter;
 
-import com.example.dishdash.category.data.model.Category;
-import com.example.dishdash.category.data.repo.CategoryRepo;
-import com.example.dishdash.category.data.repo.CategoryRepoImpl;
-import com.example.dishdash.category.presentation.view.CategoryView;
+import com.example.dishdash.data.model.meals.Category;
+import com.example.dishdash.data.repo.meals.CategoryRepo;
+import com.example.dishdash.data.repo.meals.CategoryRepoImpl;
+import com.example.dishdash.presentation.view.CategoryView;
 
 import java.util.List;
 
-public class CategoryPresenterImpl implements CategoryPresenter{
+public class CategoryPresenterImpl implements CategoryPresenter {
 
     CategoryRepoImpl categoryRepoImpl;
     CategoryView categoryView;
@@ -19,17 +19,17 @@ public class CategoryPresenterImpl implements CategoryPresenter{
 
     @Override
     public void getCategories() {
-        categoryView.showLoading();
+        categoryView.showCatLoading();
         categoryRepoImpl.getCategories(new CategoryRepo() {
             @Override
             public void onSuccess(List<Category> categoryList) {
-                categoryView.hideLoading();
+                categoryView.hideCatLoading();
                 categoryView.showCategories(categoryList);
             }
 
             @Override
             public void onFailure(String message) {
-                categoryView.hideLoading();
+                categoryView.hideCatLoading();
                 categoryView.showError(message);
             }
         });

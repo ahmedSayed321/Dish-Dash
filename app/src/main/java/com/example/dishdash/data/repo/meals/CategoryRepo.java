@@ -1,6 +1,6 @@
-package com.example.dishdash.category.data.repo;
+package com.example.dishdash.data.repo.meals;
 
-import com.example.dishdash.category.data.model.Category;
+import com.example.dishdash.data.model.meals.Category;
 
 import java.util.List;
 
