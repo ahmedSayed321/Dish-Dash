@@ -1,4 +1,4 @@
-package com.example.dishdash.category.data.model;
+package com.example.dishdash.data.model.meals;
 
 import com.google.gson.annotations.SerializedName;
 

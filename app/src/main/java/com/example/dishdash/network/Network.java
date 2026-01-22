@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Network {
 
-    public CategoryService categoryService;
+    public Service service;
     public static Network INSTANCE = null;
 
     private Network() {
@@ -13,7 +13,7 @@ public class Network {
                 .baseUrl("https://www.themealdb.com/api/json/v1/1/").addConverterFactory(
                         GsonConverterFactory.create()).build();
 
-         categoryService = retrofit.create(CategoryService.class);
+         service = retrofit.create(Service.class);
 
     }
 

@@ -6,7 +6,7 @@ app:startDestination="@id/homeFragment">
 
 <fragment
     android:id="@+id/homeFragment"
-    android:name="com.example.dishdash.category.presentation.view.HomeFragment"
+    android:name="com.example.dishdash.presentation.view.HomeFragment"
 
     android:label="Home" />
 

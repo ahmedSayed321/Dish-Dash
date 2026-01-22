@@ -1,4 +1,4 @@
-package com.example.dishdash.category.presentation.view;
+package com.example.dishdash.presentation.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.dishdash.category.data.model.Category;
+import com.example.dishdash.data.model.meals.Category;
 import com.example.dishdash.R;
 import com.google.android.material.card.MaterialCardView;
 
