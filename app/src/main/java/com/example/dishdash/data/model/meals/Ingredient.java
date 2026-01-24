@@ -8,4 +8,12 @@ public class Ingredient {
         this.name = name;
         this.measure = measure;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
 }

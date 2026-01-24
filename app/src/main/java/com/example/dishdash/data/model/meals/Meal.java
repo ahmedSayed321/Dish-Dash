@@ -22,6 +22,9 @@ public class Meal {
     @SerializedName("strInstructions")
     public String instructions;
 
+    @SerializedName("strYoutube")
+    public String youtubeLink;
+
     @SerializedName("strMealThumb")
     public String thumbnail;
 

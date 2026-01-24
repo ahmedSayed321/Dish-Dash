@@ -1,4 +1,4 @@
-package com.example.dishdash.presentation.view;
+package com.example.dishdash.presentation.view.home.category;
 
 import com.example.dishdash.data.model.meals.Category;
 

@@ -1,9 +1,9 @@
-package com.example.dishdash.presentation.presenter;
+package com.example.dishdash.presentation.presenter.category;
 
 import com.example.dishdash.data.model.meals.Category;
 import com.example.dishdash.data.repo.meals.CategoryRepo;
 import com.example.dishdash.data.repo.meals.CategoryRepoImpl;
-import com.example.dishdash.presentation.view.CategoryView;
+import com.example.dishdash.presentation.view.home.category.CategoryView;
 
 import java.util.List;
 

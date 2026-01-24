@@ -1,22 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-app:startDestination="@id/homeFragment">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
 
-<fragment
-    android:id="@+id/homeFragment"
-    android:name="com.example.dishdash.presentation.view.HomeFragment"
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dishdash.presentation.view.home.HomeFragment"
 
-    android:label="Home" />
+        android:label="Home">
+        <action
+            android:id="@+id/action_homeFragment_to_allCategoriesFragment"
+            app:destination="@id/allCategoriesFragment" />
+    </fragment>
 
-<fragment
-    android:id="@+id/favFragment"
-    android:name="com.example.dishdash.FavFragment"
-    android:label="Favorite" />
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="com.example.dishdash.FavFragment"
+        android:label="Favorite" />
 
-<fragment
-    android:id="@+id/profileFragment"
-    android:name="com.example.dishdash.ProfileFragment"
-    android:label="Profile" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.dishdash.ProfileFragment"
+        android:label="Profile" />
+    <fragment
+        android:id="@+id/allCategoriesFragment"
+        android:name="com.example.dishdash.presentation.view.all_categories.AllCategoriesFragment"
+        android:label="fragment_all_categories"
+        tools:layout="@layout/fragment_all_categories">
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesDetailsFragment2"
+        android:name="com.example.dishdash.presentation.view.home.meals.CategoriesDetailsFragment"
+        android:label="fragment_categories_details"
+        tools:layout="@layout/fragment_categories_details">
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+    </fragment>
 </navigation>

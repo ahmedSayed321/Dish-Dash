@@ -9,6 +9,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="404dp"
         android:layout_height="53dp"
+        android:layout_marginStart="20dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
