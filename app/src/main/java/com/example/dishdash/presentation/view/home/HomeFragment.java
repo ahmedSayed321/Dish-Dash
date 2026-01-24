@@ -1,113 +1,3 @@
-//package com.example.dishdash;
-//
-//import static android.view.View.GONE;
-//import static android.view.View.VISIBLE;
-//
-//import android.os.Bundle;
-//
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//import androidx.fragment.app.Fragment;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.ProgressBar;
-//
-//import com.example.dishdash.data.repo.meals.CategoryRepo;
-//import com.example.dishdash.data.repo.meals.CategoryRepoImpl;
-//import com.example.dishdash.presentation.presenter.category.CategoryPresenter;
-//import com.example.dishdash.presentation.presenter.category.CategoryPresenterImpl;
-//import com.example.dishdash.presentation.view.home.category.CategoryView;
-//import com.google.android.material.snackbar.Snackbar;
-//
-//import java.util.List;
-//
-//
-//public class HomeFragment extends Fragment implements CategoryView {
-//
-//
-//    RecyclerView recyclerView ;
-//    CategoryRepoImpl categoryRepo;
-//    ProgressBar progressBar;
-//    CategoryPresenter presenter;
-//
-//
-//
-//    public HomeFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        recyclerView = view.findViewById(R.id.horizontalRecycler);
-//
-//        LinearLayoutManager layoutManager =
-//                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//        categoryRepo = new CategoryRepoImpl();
-//        progressBar = view.findViewById(R.id.loadingAnimation2);
-//        presenter = new CategoryPresenterImpl(categoryRepo,this);
-//
-//        Category [] category ={
-//                new Category("1","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("2","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("3","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("4","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("5","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("6","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//                new Category("7","Pizza","https://www.themealdb.com/images/category/beef.png"),
-//        };
-//
-//        CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(getContext(),category);
-//        recyclerView.setAdapter(adapter);
-//
-//        presenter.getCategories();
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_home, container, false);
-//    }
-//
-//    @Override
-//    public void showLoading() {
-//        progressBar.setVisibility(VISIBLE);
-//    }
-//
-//    @Override
-//    public void hideLoading() {
-//       progressBar.setVisibility(GONE);
-//    }
-//
-//    @Override
-//    public void showCategories(List<Category> categories) {
-//        Category[] categoriesArray = new Category[categories.size()];
-//        categoriesArray = categories.toArray(categoriesArray);
-//
-//        adapter = new CategoriesRecyclerViewAdapter(getContext(), categoriesArray);
-//        recyclerView.setAdapter(adapter);
-//    }
-//
-//    @Override
-//    public void showError(String message) {
-//        Snackbar.make(recyclerView,"Sorry Something went wrong",Snackbar.LENGTH_LONG).show();
-//    }
-//}
-
 package com.example.dishdash.presentation.view.home;
 
 import static android.view.View.VISIBLE;
@@ -117,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -124,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -152,6 +45,8 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
     private CategoryPresenterImpl presenter;
     private RandomMealPresenterImpl randomMealPresenter;
     private LottieAnimationView loadingAnimation;
+    private Meal currentRandomMeal;
+    private LinearLayout searchBar;
 
     public HomeFragment() {
     }
@@ -179,6 +74,24 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
         randomMealPresenter = new RandomMealPresenterImpl(new RandomMealRepo(), this);
         presenter.getCategories();
         randomMealPresenter.getRandomMeal();
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(view);
+                HomeFragmentDirections.ActionHomeFragmentToCategoriesDetailsFragment2 action = HomeFragmentDirections.actionHomeFragmentToCategoriesDetailsFragment2("i", currentRandomMeal.id);
+                navController.navigate(action);
+            }
+        });
+
+        searchBar = view.findViewById(R.id.SearchBar);
+
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -194,6 +107,7 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
     @Override
     public void showRandomMeals(List<Meal> meals) {
         Meal meal = meals.get(0);
+        currentRandomMeal = meal;
         TextView text = cardView.findViewById(R.id.cardText);
         text.setText(meal.name);
         ImageView imageView = cardView.findViewById(R.id.cardImage);

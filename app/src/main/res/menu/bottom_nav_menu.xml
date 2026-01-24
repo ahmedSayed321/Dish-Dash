@@ -11,6 +11,14 @@
         android:id="@+id/favFragment"
         android:icon="@drawable/favorite"
         android:title="@string/favorite"/>
+    <item
+        android:id="@+id/calenderFragment2"
+        android:icon="@drawable/calendar"
+        android:title="@string/calender"/>
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/search"
+        android:title="@string/search"/>
 
     <item
         android:id="@+id/profileFragment"

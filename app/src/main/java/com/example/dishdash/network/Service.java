@@ -20,4 +20,14 @@ public interface Service {
 
     @GET("lookup.php")
     Call<MealResponse> getMealDetailById(@Query("i") String mealId);
+
+    @GET("filter.php")
+    Call<MealCategoryResponse> filterByCategory(@Query("c") String category);
+
+    @GET("filter.php")
+    Call<MealCategoryResponse> filterByArea(@Query("a") String area);
+
+    @GET("filter.php")
+    Call<MealCategoryResponse> filterByIngredient(@Query("i") String ingredient);
+
 }

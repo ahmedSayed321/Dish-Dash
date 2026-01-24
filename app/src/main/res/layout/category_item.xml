@@ -1,5 +1,4 @@
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="120dp"
     android:layout_height="match_parent"
@@ -10,17 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/white"
         android:padding="12dp">
 
         <ImageView
             android:id="@+id/categoryImage"
             android:layout_width="160dp"
             android:layout_height="100dp"
-            android:src="@drawable/burger_dummy"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/categoryName"
@@ -32,12 +31,13 @@
             android:text="Burger"
             android:textSize="14sp"
             android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textColor="@color/green"
             android:text="@string/view_all"
+            android:textColor="@color/green"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>

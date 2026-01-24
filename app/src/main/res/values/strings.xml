@@ -32,4 +32,11 @@
     <string name="view_all"><u>View All</u></string>
     <string name="user_name">User Name</string>
     <string name="all_categories_fragment">All Categories Fragment</string>
+    <string name="search">Search</string>
+    <string name="calender">Calender</string>
+    <string name="calender_fragment">Calender Fragment</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="country">Country</string>
+    <string name="category">Category</string>
+    <string name="categories">Categories</string>
 </resources>
