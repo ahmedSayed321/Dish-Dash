@@ -18,9 +18,9 @@
 //
 //import com.example.dishdash.data.repo.meals.CategoryRepo;
 //import com.example.dishdash.data.repo.meals.CategoryRepoImpl;
-//import com.example.dishdash.presentation.presenter.CategoryPresenter;
-//import com.example.dishdash.presentation.presenter.CategoryPresenterImpl;
-//import com.example.dishdash.presentation.view.CategoryView;
+//import com.example.dishdash.presentation.presenter.category.CategoryPresenter;
+//import com.example.dishdash.presentation.presenter.category.CategoryPresenterImpl;
+//import com.example.dishdash.presentation.view.home.category.CategoryView;
 //import com.google.android.material.snackbar.Snackbar;
 //
 //import java.util.List;
@@ -108,7 +108,7 @@
 //    }
 //}
 
-package com.example.dishdash.presentation.view;
+package com.example.dishdash.presentation.view.home;
 
 import static android.view.View.VISIBLE;
 
@@ -134,8 +134,11 @@ import com.example.dishdash.data.model.meals.Category;
 import com.example.dishdash.data.model.meals.Meal;
 import com.example.dishdash.data.repo.meals.CategoryRepoImpl;
 import com.example.dishdash.data.repo.meals.RandomMealRepo;
-import com.example.dishdash.presentation.presenter.CategoryPresenterImpl;
-import com.example.dishdash.presentation.presenter.RandomMealPresenterImpl;
+import com.example.dishdash.presentation.presenter.category.CategoryPresenterImpl;
+import com.example.dishdash.presentation.presenter.random.RandomMealPresenterImpl;
+import com.example.dishdash.presentation.view.home.category.CategoriesRecyclerViewAdapter;
+import com.example.dishdash.presentation.view.home.category.CategoryView;
+import com.example.dishdash.presentation.view.home.random.RandomMealView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;

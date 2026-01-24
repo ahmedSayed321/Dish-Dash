@@ -1,4 +1,4 @@
-package com.example.dishdash.presentation.view;
+package com.example.dishdash.presentation.view.home.random;
 
 import com.example.dishdash.data.model.meals.Meal;
 
