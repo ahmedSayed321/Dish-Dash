@@ -50,14 +50,11 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
 
                 NavController navController = Navigation.findNavController(view);
                 AllCategoriesFragmentDirections.ActionAllCategoriesFragmentToCategoriesDetailsFragment2 action = AllCategoriesFragmentDirections.actionAllCategoriesFragmentToCategoriesDetailsFragment2("i", currentCategory.getMealId());
                 navController.navigate(action);
 
-//                NavController navController = Navigation.findNavController(view);
-//                navController.navigate(R.id.action_allCategoriesFragment_to_categoriesDetailsFragment2);
             }
         });
     }
