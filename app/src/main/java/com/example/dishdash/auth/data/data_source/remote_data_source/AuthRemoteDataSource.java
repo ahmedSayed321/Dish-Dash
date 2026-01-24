@@ -1,4 +1,4 @@
-package com.example.dishdash.auth.data.data_source;
+package com.example.dishdash.auth.data.data_source.remote_data_source;
 
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class AuthRemoteDataSource implements AuthDataSource {
 
-    private FirebaseAuth auth;
-    private FirebaseFirestore firestore;
+    private final FirebaseAuth auth;
+    private final FirebaseFirestore firestore;
 
     public AuthRemoteDataSource() {
         auth = FirebaseAuth.getInstance();

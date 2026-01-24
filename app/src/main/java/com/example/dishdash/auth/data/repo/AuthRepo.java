@@ -1,13 +1,12 @@
-
 package com.example.dishdash.auth.data.repo;
 
-import com.example.dishdash.auth.data.data_source.AuthDataSource;
-import com.example.dishdash.auth.data.data_source.AuthRemoteDataSource;
+import com.example.dishdash.auth.data.data_source.remote_data_source.AuthDataSource;
+import com.example.dishdash.auth.data.data_source.remote_data_source.AuthRemoteDataSource;
 import com.google.firebase.auth.AuthCredential;
 
 public class AuthRepo {
 
-    private AuthDataSource remoteDataSource;
+    private final AuthDataSource remoteDataSource;
 
     public AuthRepo() {
         remoteDataSource = new AuthRemoteDataSource();
@@ -63,6 +62,7 @@ public class AuthRepo {
 
     public interface AuthCallback {
         void onSuccess();
+
         void onError(String message);
     }
 }

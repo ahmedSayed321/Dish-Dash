@@ -24,21 +24,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity implements AuthView {
 
+    static final int RC_SIGN_IN = 100;
     EditText email, password;
     Button loginBtn;
     LinearLayout googleLogin, guest;
     TextView signUpText;
     AuthPresenter authPresenter;
     LottieAnimationView loadingAnimation;
-
     FirebaseAuth mAuth;
     GoogleSignInClient googleSignInClient;
-    static final int RC_SIGN_IN = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,7 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
         signUpText = findViewById(R.id.signupTextBtn);
 
         loadingAnimation = findViewById(R.id.loadingAnimation2);
-        authPresenter = new AuthPresenterImpl(this);
+        authPresenter = new AuthPresenterImpl(this, SignInActivity.this);
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -84,7 +82,7 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
             @Override
             public void onClick(View view) {
                 authPresenter.signIn(email.getText().toString().trim(), password.getText().toString().trim());
-               // signIn(email.getText().toString().trim(), password.getText().toString().trim());
+                // signIn(email.getText().toString().trim(), password.getText().toString().trim());
             }
         });
     }
@@ -126,8 +124,8 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
 
     @Override
     public void showPasswordError(String message) {
-       password.setError(message);
-       password.requestFocus();
+        password.setError(message);
+        password.requestFocus();
     }
 
     @Override
