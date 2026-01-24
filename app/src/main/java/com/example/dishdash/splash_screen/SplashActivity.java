@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
+import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.auth.presentation.view.SignInActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,10 +29,21 @@ public class SplashActivity extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
         splashText.startAnimation(animation);
 
+        AuthLocalDataSource localDataSource =
+                new AuthLocalDataSource(getApplicationContext());
+
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
+
+            Intent intent;
+            if (localDataSource.isUserLoggedIn()) {
+                intent = new Intent(SplashActivity.this, MainActivity.class);
+            } else {
+                intent = new Intent(SplashActivity.this, SignInActivity.class);
+            }
+
             startActivity(intent);
             finish();
+
         }, 5000);
 
     }

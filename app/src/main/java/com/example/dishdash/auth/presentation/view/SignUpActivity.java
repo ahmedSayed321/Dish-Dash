@@ -19,13 +19,11 @@ import com.example.dishdash.auth.presentation.presenter.AuthPresenterImpl;
 public class SignUpActivity extends AppCompatActivity implements AuthView {
 
     ImageView backBtn;
-    EditText email ,firstName , lastName , password , confirmPassword;
+    EditText email, firstName, lastName, password, confirmPassword;
     Button signUpBtn;
 
     AuthPresenter authPresenter;
     LottieAnimationView loadingAnimation;
-
-
 
 
     @Override
@@ -40,12 +38,11 @@ public class SignUpActivity extends AppCompatActivity implements AuthView {
         password = findViewById(R.id.editTextPassword);
         confirmPassword = findViewById(R.id.editTextConfirmPassword);
         email = findViewById(R.id.editTextEmail);
-        signUpBtn =findViewById(R.id.signupBtn);
+        signUpBtn = findViewById(R.id.signupBtn);
         loadingAnimation = findViewById(R.id.loadingAnimation);
 
 
-        authPresenter = new AuthPresenterImpl(this);
-
+        authPresenter = new AuthPresenterImpl(this, SignUpActivity.this);
 
 
         signUpBtn.setOnClickListener(v -> {
@@ -56,11 +53,10 @@ public class SignUpActivity extends AppCompatActivity implements AuthView {
             String fName = firstName.getText().toString().trim();
             String lName = lastName.getText().toString().trim();
 
-            authPresenter.signUp(userEmail,userPassword,userConfirmPassword,fName,lName);
+            authPresenter.signUp(userEmail, userPassword, userConfirmPassword, fName, lName);
 
 
         });
-
 
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -81,18 +77,18 @@ public class SignUpActivity extends AppCompatActivity implements AuthView {
 
     @Override
     public void hideLoading() {
-     loadingAnimation.cancelAnimation();
-     loadingAnimation.setVisibility(View.GONE);
+        loadingAnimation.cancelAnimation();
+        loadingAnimation.setVisibility(View.GONE);
     }
 
     @Override
     public void showEmailError(String message) {
-     email.setError(message);
+        email.setError(message);
     }
 
     @Override
     public void showPasswordError(String message) {
-       password.setError(message);
+        password.setError(message);
     }
 
     @Override

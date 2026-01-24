@@ -12,11 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="184dp"
             android:text="@string/user_name"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +29,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView6"
             app:strokeColor="#E0E0E0"
@@ -72,31 +75,30 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Email Title -->
         <TextView
             android:id="@+id/emailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
             android:text="@string/email"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/userNameCardView" />
 
-        <!-- Email Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/userEmailCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="25dp"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailTitle"
             app:strokeColor="#E0E0E0"
@@ -104,7 +106,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="63dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="12dp">
@@ -136,12 +138,12 @@
             android:id="@+id/logOutBtn"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="92dp"
             android:backgroundTint="@color/red"
             android:text="Log out"
             app:icon="@drawable/logout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/userEmailCardView" />
 
