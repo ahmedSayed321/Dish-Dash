@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_green_gradient"
-    tools:context=".splash_screen.SplashActivity">
+    tools:context=".presentation.view.splash_screen.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -28,10 +28,10 @@
         android:layout_marginStart="160dp"
         android:layout_marginEnd="157dp"
         android:layout_marginBottom="212dp"
+        android:fontFamily="@font/kyiv_type_titling_heavy2"
         android:gravity="center"
         android:text="@string/dish_dash"
         android:textColor="@color/white"
-        android:fontFamily="@font/kyiv_type_titling_heavy2"
         android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

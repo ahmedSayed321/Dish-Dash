@@ -1,6 +1,4 @@
-package com.example.dishdash.data.datasources.meals.remote_data_source;
-
-import android.util.Log;
+package com.example.dishdash.data.datasources.meals.remote_data_source.random;
 
 import com.example.dishdash.data.model.meals.Meal;
 import com.example.dishdash.data.model.meals.MealResponse;
@@ -13,22 +11,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MealDetailsRemoteDataSource {
+public class RandomMealRemoteDataSource {
 
     public Service service;
 
-    public MealDetailsRemoteDataSource() {
+    public RandomMealRemoteDataSource() {
         service = Network.getInstance().service;
     }
 
-    public void getMealDetails(String mealId, RandomMealRemoteDataSource.RandomMealNetworkResponse randomMealNetworkResponse) {
+    public void getRandomMeal(RandomMealNetworkResponse randomMealNetworkResponse) {
 
-        service.getMealDetailById(mealId).enqueue(new Callback<MealResponse>() {
+        service.getRandomMeal().enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                List<Meal> mealDetail = response.body().meals;
-                randomMealNetworkResponse.onSuccess(mealDetail);
-                Log.i("DataSource", "onResponse: " + mealDetail.get(0).name);
+                List<Meal> meals = response.body().meals;
+                randomMealNetworkResponse.onSuccess(meals);
             }
 
             @Override
@@ -36,5 +33,12 @@ public class MealDetailsRemoteDataSource {
                 randomMealNetworkResponse.onFailure(t.getMessage());
             }
         });
+
+    }
+
+    public interface RandomMealNetworkResponse<T> {
+        void onSuccess(T randomMeals);
+
+        void onFailure(String message);
     }
 }

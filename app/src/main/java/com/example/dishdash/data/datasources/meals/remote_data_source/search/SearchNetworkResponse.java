@@ -1,4 +1,4 @@
-package com.example.dishdash.data.datasources.meals.remote_data_source;
+package com.example.dishdash.data.datasources.meals.remote_data_source.search;
 
 import com.example.dishdash.data.model.meals.MealCategory;
 

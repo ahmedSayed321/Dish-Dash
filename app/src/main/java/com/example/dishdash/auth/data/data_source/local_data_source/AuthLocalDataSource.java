@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 public class AuthLocalDataSource {
 
     private static final String PREF_NAME = "auth_pref";
-    private static final String KEY_EMAIL = "user_email";
+    private static final String KEY_UID = "user_uid";
+
+    private static AuthLocalDataSource instance;
 
     private final SharedPreferences sharedPreferences;
 
@@ -14,21 +16,30 @@ public class AuthLocalDataSource {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveUserEmail(String email) {
+    public static synchronized AuthLocalDataSource getInstance(Context context) {
+        if (instance == null) {
+            instance = new AuthLocalDataSource(context.getApplicationContext());
+        }
+        return instance;
+    }
+
+    public void saveUserUid(String uid) {
         sharedPreferences.edit()
-                .putString(KEY_EMAIL, email)
+                .putString(KEY_UID, uid)
                 .apply();
     }
 
-    public String getUserEmail() {
-        return sharedPreferences.getString(KEY_EMAIL, null);
+    public String getUserUid() {
+        return sharedPreferences.getString(KEY_UID, null);
     }
 
     public boolean isUserLoggedIn() {
-        return getUserEmail() != null;
+        return getUserUid() != null;
     }
 
     public void clearUser() {
         sharedPreferences.edit().clear().apply();
     }
+
+
 }

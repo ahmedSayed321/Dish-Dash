@@ -19,13 +19,14 @@ import com.example.dishdash.data.model.meals.Meal;
 import com.example.dishdash.presentation.presenter.meals.MealDetailsPresenter;
 import com.example.dishdash.presentation.presenter.meals.MealDetailsPresenterImpl;
 import com.example.dishdash.presentation.view.all_categories.AllCategoriesFragmentArgs;
+import com.example.dishdash.utilites.MySnackBar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.List;
 
-public class CategoriesDetailsFragment extends Fragment implements MealDetailsView {
+public class MealDetailsFragment extends Fragment implements MealDetailsView {
 
     RecyclerView rvIngredients;
     IngredientsAdapter ingredientsAdapter;
@@ -35,6 +36,9 @@ public class CategoriesDetailsFragment extends Fragment implements MealDetailsVi
     MealDetailsPresenter presenter;
     TextView mealName, mealInstructions, mealArea, mealCategory;
     ImageView mealImage;
+    ImageView favBtn;
+    boolean isFav = false;
+
     YouTubePlayerView youTubePlayer;
 
     @Override
@@ -50,6 +54,7 @@ public class CategoriesDetailsFragment extends Fragment implements MealDetailsVi
         mealImage = view.findViewById(R.id.imgMealDetail);
         rvIngredients = view.findViewById(R.id.rvIngredients);
         youTubePlayer = view.findViewById(R.id.youtubePlayerView);
+        favBtn = view.findViewById(R.id.ic_fav);
 
         getLifecycle().addObserver(youTubePlayer);
 
@@ -61,9 +66,9 @@ public class CategoriesDetailsFragment extends Fragment implements MealDetailsVi
         key = args.getKey();
         mealId = args.getValue();
 
-        presenter = new MealDetailsPresenterImpl(this);
+        presenter = new MealDetailsPresenterImpl(this, requireContext());
         presenter.getMealDetails(mealId);
-
+        presenter.isFav(mealId);
         return view;
     }
 
@@ -97,6 +102,31 @@ public class CategoriesDetailsFragment extends Fragment implements MealDetailsVi
         ingredientList = meal.getIngredients();
         ingredientsAdapter = new IngredientsAdapter(ingredientList);
         rvIngredients.setAdapter(ingredientsAdapter);
+
+
+        favBtn.setOnClickListener((btnView) -> {
+            if (!isFav) {
+                presenter.addToFav(meal);
+                MySnackBar.showSuccess(getView(), "Meal Added Successfully ");
+                showFavoriteState(true);
+                //favBtn.setImageResource(R.drawable.fav_selected);
+            } else {
+                presenter.removeFromFav(meal);
+                MySnackBar.showSuccess(getView(), "Meal Removed Successfully ");
+                showFavoriteState(false);
+            }
+        });
+    }
+
+
+    @Override
+    public void showFavoriteState(boolean isFavorite) {
+        this.isFav = isFavorite;
+        if (isFavorite) {
+            favBtn.setImageResource(R.drawable.fav_selected);
+        } else {
+            favBtn.setImageResource(R.drawable.fav_unselected);
+        }
     }
 
     @Override

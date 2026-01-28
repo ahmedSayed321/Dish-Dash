@@ -1,22 +1,31 @@
 package com.example.dishdash.presentation.presenter.meals;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.example.dishdash.data.datasources.meals.remote_data_source.RandomMealRemoteDataSource;
+import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
+import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
 import com.example.dishdash.data.model.meals.Meal;
+import com.example.dishdash.data.model.meals.MealToFavMapper;
 import com.example.dishdash.data.repo.meals.MealDetailRepo;
+import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.example.dishdash.presentation.view.home.meals.MealDetailsView;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MealDetailsPresenterImpl implements MealDetailsPresenter {
 
     MealDetailsView view;
     MealDetailRepo repo;
+    FavouriteRepository favRepo;
+    Context context;
 
-    public MealDetailsPresenterImpl(MealDetailsView view) {
+    public MealDetailsPresenterImpl(MealDetailsView view, Context context) {
         this.view = view;
+        this.context = context;
         repo = new MealDetailRepo();
+        favRepo = new FavouriteRepository(context);
     }
 
     @Override
@@ -45,6 +54,28 @@ public class MealDetailsPresenterImpl implements MealDetailsPresenter {
                         view.showError(message);
                     }
                 });
+    }
+
+    @Override
+    public void addToFav(Meal meal) {
+
+        favRepo.addToFavorites(MealToFavMapper.converterMealToFav(meal, AuthLocalDataSource.getInstance(context).getUserUid()));
+    }
+
+    @Override
+    public void isFav(String mealId) {
+        favRepo.isMealFavorite(mealId, new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean value) {
+                view.showFavoriteState(value);
+            }
+        });
+
+    }
+
+    @Override
+    public void removeFromFav(Meal meal) {
+        favRepo.removeFromFavorites(MealToFavMapper.converterMealToFav(meal, AuthLocalDataSource.getInstance(context).getUserUid()));
     }
 
 }

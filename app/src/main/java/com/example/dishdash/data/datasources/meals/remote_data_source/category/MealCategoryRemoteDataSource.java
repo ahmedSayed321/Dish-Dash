@@ -1,5 +1,6 @@
-package com.example.dishdash.data.datasources.meals.remote_data_source;
+package com.example.dishdash.data.datasources.meals.remote_data_source.category;
 
+import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
 import com.example.dishdash.data.model.meals.MealCategory;
 import com.example.dishdash.data.model.meals.MealCategoryResponse;
 import com.example.dishdash.network.Network;

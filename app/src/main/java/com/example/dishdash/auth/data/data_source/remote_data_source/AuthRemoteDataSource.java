@@ -21,7 +21,7 @@ public class AuthRemoteDataSource implements AuthDataSource {
     public void signUp(String email, String password, String firstName, String lastName, AuthCallback callback) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> {
-                    String userId = auth.getCurrentUser().getUid();
+                    String userId = authResult.getUser().getUid();
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("email", email);
                     userMap.put("first_name", firstName);
@@ -30,7 +30,7 @@ public class AuthRemoteDataSource implements AuthDataSource {
                     firestore.collection("users")
                             .document(userId)
                             .set(userMap)
-                            .addOnSuccessListener(unused -> callback.onSuccess())
+                            .addOnSuccessListener(unused -> callback.onSuccess(userId))
                             .addOnFailureListener(e -> callback.onError(e.getMessage()));
                 })
                 .addOnFailureListener(e -> callback.onError(e.getMessage()));
@@ -41,7 +41,8 @@ public class AuthRemoteDataSource implements AuthDataSource {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        callback.onSuccess();
+                        String uid = task.getResult().getUser().getUid();
+                        callback.onSuccess(uid);
                     } else {
                         callback.onError(task.getException().getMessage());
                     }
@@ -53,10 +54,36 @@ public class AuthRemoteDataSource implements AuthDataSource {
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        callback.onSuccess();
+                        String uid = task.getResult().getUser().getUid();
+
+                        callback.onSuccess(uid);
                     } else {
                         callback.onError(task.getException().getMessage());
                     }
                 });
     }
+
+
+    public void getUserProfile(String userId, UserProfileCallback callback) {
+        firestore.collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+
+                    if (!documentSnapshot.exists()) {
+                        callback.onError("User not found");
+                        return;
+                    }
+
+                    String email = documentSnapshot.getString("email");
+                    String firstName = documentSnapshot.getString("first_name");
+                    String lastName = documentSnapshot.getString("last_name");
+
+                    callback.onSuccess(email, firstName, lastName);
+                })
+                .addOnFailureListener(e ->
+                        callback.onError(e.getMessage())
+                );
+    }
+
 }

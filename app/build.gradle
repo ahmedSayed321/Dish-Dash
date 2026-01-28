@@ -43,7 +43,7 @@ dependencies {
     implementation libs.credentials.play.services.auth
     implementation libs.firebase.firestore
 
-    implementation 'com.google.android.gms:play-services-auth:21.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
     implementation libs.material.v1110
     implementation "androidx.navigation:navigation-fragment:2.7.7"
     implementation "androidx.navigation:navigation-ui:2.7.7"
@@ -53,6 +53,9 @@ dependencies {
     implementation libs.cardview
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0'
+    implementation "androidx.room:room-runtime:2.8.4"
+    annotationProcessor "androidx.room:room-compiler:2.8.4"
+
     implementation libs.googleid
     implementation libs.recyclerview
     testImplementation libs.junit

@@ -1,6 +1,6 @@
 package com.example.dishdash.presentation.presenter.search;
 
-import com.example.dishdash.data.datasources.meals.remote_data_source.SearchNetworkResponse;
+import com.example.dishdash.data.datasources.meals.remote_data_source.search.SearchNetworkResponse;
 import com.example.dishdash.data.model.meals.MealCategory;
 import com.example.dishdash.data.repo.meals.SearchRepoImpl;
 import com.example.dishdash.presentation.view.home.search.SearchFragment;

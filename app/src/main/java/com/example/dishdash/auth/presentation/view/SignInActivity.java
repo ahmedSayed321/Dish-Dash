@@ -2,6 +2,7 @@ package com.example.dishdash.auth.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
+import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.auth.presentation.presenter.AuthPresenter;
 import com.example.dishdash.auth.presentation.presenter.AuthPresenterImpl;
+import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,6 +40,8 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
     LottieAnimationView loadingAnimation;
     FirebaseAuth mAuth;
     GoogleSignInClient googleSignInClient;
+    AuthLocalDataSource authLocalDataSource;
+    FavouriteRepository favouriteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,8 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
         authPresenter = new AuthPresenterImpl(this, SignInActivity.this);
         mAuth = FirebaseAuth.getInstance();
 
+        authLocalDataSource = new AuthLocalDataSource(getApplicationContext());
+        favouriteRepository = new FavouriteRepository(getApplicationContext());
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -146,8 +153,18 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
     @Override
     public void onAuthSuccess() {
         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        String usId = authLocalDataSource.getUserUid();
+        Log.i("LoginFragment", "user id is : " + usId);
+        favouriteRepository.downloadFavoritesFromFirebase(
+                usId,
+                () -> runOnUiThread(() -> {
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                }),
+                error -> runOnUiThread(() ->
+                        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                )
+        );
     }
 
     @Override

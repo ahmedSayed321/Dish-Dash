@@ -11,7 +11,13 @@ public interface AuthDataSource {
     void signInWithGoogle(AuthCredential credential, AuthCallback callback);
 
     interface AuthCallback {
-        void onSuccess();
+        void onSuccess(String uId);
+
+        void onError(String message);
+    }
+
+    interface UserProfileCallback {
+        void onSuccess(String email, String firstName, String lastName);
 
         void onError(String message);
     }

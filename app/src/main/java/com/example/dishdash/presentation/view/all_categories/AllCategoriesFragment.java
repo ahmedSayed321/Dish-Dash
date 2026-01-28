@@ -29,7 +29,6 @@ public class AllCategoriesFragment extends Fragment implements MealCategoryView 
     String value = "";
 
     public AllCategoriesFragment() {
-        // Required empty public constructor
     }
 
 
@@ -42,7 +41,6 @@ public class AllCategoriesFragment extends Fragment implements MealCategoryView 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_all_categories, container, false);
     }
 

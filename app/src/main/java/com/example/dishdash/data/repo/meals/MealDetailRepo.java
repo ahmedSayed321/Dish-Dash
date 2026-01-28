@@ -1,7 +1,7 @@
 package com.example.dishdash.data.repo.meals;
 
-import com.example.dishdash.data.datasources.meals.remote_data_source.MealDetailsRemoteDataSource;
-import com.example.dishdash.data.datasources.meals.remote_data_source.RandomMealRemoteDataSource;
+import com.example.dishdash.data.datasources.meals.remote_data_source.meal_detail.MealDetailsRemoteDataSource;
+import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
 import com.example.dishdash.data.model.meals.Meal;
 
 import java.util.List;

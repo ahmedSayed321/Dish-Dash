@@ -6,10 +6,13 @@ public interface MealDetailsView {
 
     void showMealDetails(Meal meal);
 
+    void showFavoriteState(boolean isFavorite);
 
     void showLoading();
 
     void hideLoading();
 
     void showError(String message);
+
+
 }

@@ -1,8 +1,8 @@
 package com.example.dishdash.data.repo.meals;
 
 import com.example.dishdash.data.model.meals.Category;
-import com.example.dishdash.data.datasources.meals.remote_data_source.CategoryNetworkResponse;
-import com.example.dishdash.data.datasources.meals.remote_data_source.CategoryRemoteDataSource;
+import com.example.dishdash.data.datasources.meals.remote_data_source.category.CategoryNetworkResponse;
+import com.example.dishdash.data.datasources.meals.remote_data_source.category.CategoryRemoteDataSource;
 
 import java.util.List;
 
