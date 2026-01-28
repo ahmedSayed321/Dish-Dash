@@ -7,27 +7,21 @@ import java.util.List;
 
 public class Meal {
 
+    private final List<Ingredient> list = new ArrayList<>();
     @SerializedName("idMeal")
     public String id;
-
     @SerializedName("strMeal")
     public String name;
-
     @SerializedName("strCategory")
     public String category;
-
     @SerializedName("strArea")
     public String area;
-
     @SerializedName("strInstructions")
     public String instructions;
-
     @SerializedName("strYoutube")
     public String youtubeLink;
-
     @SerializedName("strMealThumb")
     public String thumbnail;
-
     @SerializedName("strIngredient1")
     public String ingredient1;
     @SerializedName("strIngredient2")
@@ -68,7 +62,6 @@ public class Meal {
     public String ingredient19;
     @SerializedName("strIngredient20")
     public String ingredient20;
-
     @SerializedName("strMeasure1")
     public String measure1;
     @SerializedName("strMeasure2")
@@ -110,9 +103,19 @@ public class Meal {
     @SerializedName("strMeasure20")
     public String measure20;
 
-    public List<Ingredient> getIngredients() {
-        List<Ingredient> list = new ArrayList<>();
+//    public Meal(String id, String name, String category, String area, String instructions, String youtubeLink, String thumbnail, List<Ingredient> list) {
+//        this.id = id;
+//        this.name = name;
+//        this.thumbnail = thumbnail;
+//        this.category = category;
+//        this.area = area;
+//        this.instructions = instructions;
+//        this.youtubeLink = youtubeLink;
+//        this.list = list;
+//    }
 
+    public List<Ingredient> getIngredients() {
+        if (!list.isEmpty()) return list;
         addIngredient(list, ingredient1, measure1);
         addIngredient(list, ingredient2, measure2);
         addIngredient(list, ingredient3, measure3);

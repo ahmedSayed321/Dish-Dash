@@ -1,7 +1,6 @@
-package com.example.dishdash;
+package com.example.dishdash.utilites;
 
 import android.text.TextUtils;
-import android.util.Patterns;
 
 import java.util.regex.Pattern;
 

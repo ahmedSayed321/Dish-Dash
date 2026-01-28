@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                         .findFragmentById(R.id.nav_host_fragment);
 
         NavController navController = navHostFragment.getNavController();
-
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
     }
 }

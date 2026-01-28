@@ -22,12 +22,16 @@
 
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.example.dishdash.FavFragment"
-        android:label="Favorite" />
+        android:name="com.example.dishdash.presentation.view.home.fav.FavFragment"
+        android:label="Favorite">
+        <action
+            android:id="@+id/action_favFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.dishdash.ProfileFragment"
+        android:name="com.example.dishdash.presentation.view.home.profile.ProfileFragment"
         android:label="Profile" />
     <fragment
         android:id="@+id/allCategoriesFragment"
@@ -46,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoriesDetailsFragment2"
-        android:name="com.example.dishdash.presentation.view.home.meals.CategoriesDetailsFragment"
+        android:name="com.example.dishdash.presentation.view.home.meals.MealDetailsFragment"
         android:label="fragment_categories_details"
         tools:layout="@layout/fragment_categories_details">
         <argument

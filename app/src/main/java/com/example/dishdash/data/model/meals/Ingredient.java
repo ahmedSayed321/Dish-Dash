@@ -1,8 +1,15 @@
 package com.example.dishdash.data.model.meals;
 
+import androidx.room.Ignore;
+
 public class Ingredient {
-    public final String name;
-    public final String measure;
+    public String name;
+    public String measure;
+
+
+    @Ignore
+    public Ingredient() {
+    }
 
     public Ingredient(String name, String measure) {
         this.name = name;

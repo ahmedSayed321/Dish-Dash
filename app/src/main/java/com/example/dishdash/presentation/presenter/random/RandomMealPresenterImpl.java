@@ -1,6 +1,6 @@
 package com.example.dishdash.presentation.presenter.random;
 
-import com.example.dishdash.data.datasources.meals.remote_data_source.RandomMealRemoteDataSource;
+import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
 import com.example.dishdash.data.model.meals.Meal;
 import com.example.dishdash.data.repo.meals.RandomMealRepo;
 import com.example.dishdash.presentation.view.home.random.RandomMealView;

@@ -1,4 +1,4 @@
-package com.example.dishdash.splash_screen;
+package com.example.dishdash.presentation.view.splash_screen;
 
 import android.content.Intent;
 import android.os.Bundle;
