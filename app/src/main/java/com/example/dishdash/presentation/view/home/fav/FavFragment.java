@@ -60,7 +60,7 @@ public class FavFragment extends Fragment implements FavView {
 
     @Override
     public void showEmpty() {
-        adapter.setMeals(List.of()); // قائمة فاضية
+        adapter.setMeals(List.of());
     }
 
     @Override

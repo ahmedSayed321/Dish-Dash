@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/calenderFragment2"
-        android:name="com.example.dishdash.CalenderFragment"
+        android:name="com.example.dishdash.presentation.view.calender.CalenderMealFragment"
         android:label="fragment_calender"
         tools:layout="@layout/fragment_calender" />
 </navigation>

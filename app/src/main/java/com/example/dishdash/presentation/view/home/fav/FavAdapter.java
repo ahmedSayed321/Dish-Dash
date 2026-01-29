@@ -12,7 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.dishdash.FavFragmentDirections;
 import com.example.dishdash.R;
 import com.example.dishdash.data.model.meals.FavoriteMealEntity;
 import com.example.dishdash.presentation.presenter.favourite.FavPresenter;

@@ -18,8 +18,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
 import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
-import com.example.dishdash.auth.presentation.presenter.AuthPresenter;
 import com.example.dishdash.auth.presentation.presenter.AuthPresenterImpl;
+import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +29,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 public class SignInActivity extends AppCompatActivity implements AuthView {
 
     static final int RC_SIGN_IN = 100;
@@ -36,7 +38,7 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
     Button loginBtn;
     LinearLayout googleLogin, guest;
     TextView signUpText;
-    AuthPresenter authPresenter;
+    AuthPresenterImpl authPresenter;
     LottieAnimationView loadingAnimation;
     FirebaseAuth mAuth;
     GoogleSignInClient googleSignInClient;
@@ -59,7 +61,6 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
         loadingAnimation = findViewById(R.id.loadingAnimation2);
         authPresenter = new AuthPresenterImpl(this, SignInActivity.this);
         mAuth = FirebaseAuth.getInstance();
-
         authLocalDataSource = new AuthLocalDataSource(getApplicationContext());
         favouriteRepository = new FavouriteRepository(getApplicationContext());
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -155,16 +156,25 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
         String usId = authLocalDataSource.getUserUid();
         Log.i("LoginFragment", "user id is : " + usId);
+
         favouriteRepository.downloadFavoritesFromFirebase(
                 usId,
                 () -> runOnUiThread(() -> {
+                    authPresenter.downloadAndSaveCalenderMeals(usId);
+
+//                    authPresenter.downloadCalenderMeals(usId, meals -> {
+//
+//                        runOnUiThread(() -> {
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
+//                        });
+//                    });
                 }),
                 error -> runOnUiThread(() ->
                         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
                 )
         );
+
     }
 
     @Override
@@ -173,4 +183,10 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
 
 
     }
+
+    @Override
+    public void showCalendarMeals(List<CalenderMeal> meals) {
+
+    }
+
 }

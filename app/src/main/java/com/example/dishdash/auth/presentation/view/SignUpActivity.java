@@ -15,6 +15,9 @@ import com.example.dishdash.MainActivity;
 import com.example.dishdash.R;
 import com.example.dishdash.auth.presentation.presenter.AuthPresenter;
 import com.example.dishdash.auth.presentation.presenter.AuthPresenterImpl;
+import com.example.dishdash.data.model.meals.CalenderMeal;
+
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity implements AuthView {
 
@@ -116,5 +119,10 @@ public class SignUpActivity extends AppCompatActivity implements AuthView {
     @Override
     public void onAuthError(String message) {
         email.setError(message);
+    }
+
+    @Override
+    public void showCalendarMeals(List<CalenderMeal> meals) {
+        
     }
 }
