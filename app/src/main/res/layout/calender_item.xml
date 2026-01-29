@@ -15,14 +15,14 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/ivMealThumb"
+            android:id="@+id/ivMealThumbCalender"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/tvMealName"
+            android:id="@+id/tvMealNameCalender"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -37,7 +37,7 @@
             android:id="@+id/ivDelete"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/fav_unselected"
+            android:src="@drawable/cancel"
             app:tint="@color/red" />
 
     </LinearLayout>

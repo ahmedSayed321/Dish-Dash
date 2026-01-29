@@ -10,19 +10,22 @@ import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.model.meals.FavoriteMealEntity;
 
 @Database(entities = {FavoriteMealEntity.class, CalenderMeal.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase {
-    private static final String DB_NAME = "meals_db";
-    private static AppDatabase instance = null;
+public abstract class CalenderDataBase extends RoomDatabase {
 
-    public static AppDatabase getInstance(Context ctx) {
+    private static final String DB_NAME = "meals_db";
+    private static CalenderDataBase instance = null;
+
+    public static CalenderDataBase getInstance(Context ctx) {
         if (instance == null) {
-            instance = Room.databaseBuilder(ctx, AppDatabase.class, DB_NAME).build();
+            instance = Room.databaseBuilder(ctx, CalenderDataBase.class, DB_NAME)
+                    .fallbackToDestructiveMigration()
+                    .build();
             return instance;
         }
         return instance;
     }
 
-    public abstract FavoriteMealDao favoriteMealDao();
 
+    public abstract CalenderMealDao calenderMealDao();
 
 }

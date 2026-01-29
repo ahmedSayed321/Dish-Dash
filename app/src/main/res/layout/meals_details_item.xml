@@ -199,6 +199,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/fav_unselected" />
 
+        <ImageView
+            android:id="@+id/calenderImageView"
+            android:layout_width="53dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/calendar_icon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

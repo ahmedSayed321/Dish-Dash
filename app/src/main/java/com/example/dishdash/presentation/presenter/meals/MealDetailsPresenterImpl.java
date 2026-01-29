@@ -5,8 +5,10 @@ import android.util.Log;
 
 import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
+import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.model.meals.Meal;
 import com.example.dishdash.data.model.meals.MealToFavMapper;
+import com.example.dishdash.data.repo.meals.CalenderRepo;
 import com.example.dishdash.data.repo.meals.MealDetailRepo;
 import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.example.dishdash.presentation.view.home.meals.MealDetailsView;
@@ -20,12 +22,14 @@ public class MealDetailsPresenterImpl implements MealDetailsPresenter {
     MealDetailRepo repo;
     FavouriteRepository favRepo;
     Context context;
+    CalenderRepo calenderRepo;
 
     public MealDetailsPresenterImpl(MealDetailsView view, Context context) {
         this.view = view;
         this.context = context;
         repo = new MealDetailRepo();
         favRepo = new FavouriteRepository(context);
+        calenderRepo = new CalenderRepo(context);
     }
 
     @Override
@@ -63,6 +67,11 @@ public class MealDetailsPresenterImpl implements MealDetailsPresenter {
     }
 
     @Override
+    public void addCalenderMeal(CalenderMeal calenderMeal) {
+        calenderRepo.insertCalenderMeal(calenderMeal);
+    }
+
+    @Override
     public void isFav(String mealId) {
         favRepo.isMealFavorite(mealId, new Consumer<Boolean>() {
             @Override
@@ -77,5 +86,6 @@ public class MealDetailsPresenterImpl implements MealDetailsPresenter {
     public void removeFromFav(Meal meal) {
         favRepo.removeFromFavorites(MealToFavMapper.converterMealToFav(meal, AuthLocalDataSource.getInstance(context).getUserUid()));
     }
+
 
 }

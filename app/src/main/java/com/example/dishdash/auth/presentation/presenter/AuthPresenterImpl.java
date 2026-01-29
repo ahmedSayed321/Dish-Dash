@@ -5,6 +5,9 @@ import android.content.Context;
 import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.auth.data.repo.AuthRepo;
 import com.example.dishdash.auth.presentation.view.AuthView;
+import com.example.dishdash.data.model.meals.CalenderMeal;
+import com.example.dishdash.data.repo.meals.CalenderRepo;
+import com.example.dishdash.data.repo.meals.remote.FirebaseCalenderRepository;
 import com.example.dishdash.utilites.ValidationUtils;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -14,11 +17,16 @@ public class AuthPresenterImpl implements AuthPresenter {
     private final AuthView authView;
     private final AuthRepo authRepo;
     private final AuthLocalDataSource authLocalDataSource;
+    private final FirebaseCalenderRepository firebaseCalenderRepo;
+    private final CalenderRepo calenderRepo; // <-- ضفتها هنا
+
 
     public AuthPresenterImpl(AuthView authView, Context context) {
         this.authView = authView;
         authRepo = new AuthRepo(context);
         authLocalDataSource = new AuthLocalDataSource(context);
+        firebaseCalenderRepo = new FirebaseCalenderRepository();
+        calenderRepo = new CalenderRepo(context);
     }
 
     @Override
@@ -129,6 +137,35 @@ public class AuthPresenterImpl implements AuthPresenter {
     public AuthLocalDataSource getAuthLocalDataSource() {
         return authLocalDataSource;
     }
+
+
+    public void downloadAndSaveCalenderMeals(String userId) {
+        authView.showLoading();
+
+        firebaseCalenderRepo.downloadCalenderMeals(userId,
+                meals -> {
+                    new Thread(() -> {
+                        for (CalenderMeal meal : meals) {
+                            calenderRepo.insertCalenderMeal(meal);
+                        }
+
+                        android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                        mainHandler.post(() -> {
+                            authView.showCalendarMeals(meals);
+                            authView.hideLoading();
+                        });
+
+                    }).start();
+
+                },
+                error -> {
+                    android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+                    mainHandler.post(() -> {
+                        authView.hideLoading();
+                    });
+                });
+    }
+
 
 }
 

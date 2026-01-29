@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,20 @@ import androidx.fragment.app.Fragment;
 import com.example.dishdash.R;
 import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.auth.presentation.view.SignInActivity;
+import com.example.dishdash.data.model.meals.CalenderMeal;
+import com.example.dishdash.data.repo.meals.CalenderRepo;
 import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.example.dishdash.presentation.presenter.profile.ProfilePresenter;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 public class ProfileFragment extends Fragment implements ProfileView {
 
     EditText userName, userEmail;
     private Button logoutButton;
     private FavouriteRepository favouriteRepository;
+    private CalenderRepo calenderRepo;
     private AuthLocalDataSource authLocalDataSource;
     private ProgressDialog progressDialog;
     private ProfilePresenter presenter;
@@ -46,6 +52,8 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
         logoutButton = view.findViewById(R.id.logOutBtn);
         favouriteRepository = new FavouriteRepository(getContext());
+        calenderRepo = new CalenderRepo(requireContext());
+
         authLocalDataSource = new AuthLocalDataSource(getContext());
         userName = view.findViewById(R.id.profileEditUsername);
         userEmail = view.findViewById(R.id.profileEditEmail);
@@ -53,8 +61,8 @@ public class ProfileFragment extends Fragment implements ProfileView {
         progressDialog.setMessage("Syncing your favorites...");
         progressDialog.setCancelable(false);
         presenter = new ProfilePresenter(this, requireContext());
-
         presenter.loadUserProfile();
+
         logoutButton.setOnClickListener(v -> new AlertDialog.Builder(getContext())
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to logout?")
@@ -73,8 +81,11 @@ public class ProfileFragment extends Fragment implements ProfileView {
                 userId,
                 () -> {
                     progressDialog.dismiss();
+                    presenter.uploadLocalCalenderMeals(userId);
                     authLocalDataSource.clearUser();
                     favouriteRepository.deleteAllFav();
+                    calenderRepo.deleteAllCalenderMeals();
+                    Log.i("ProfileFragment", "logoutUser: All Cal Meals Deleted Successfully");
                     FirebaseAuth.getInstance().signOut();
 
                     Intent intent = new Intent(getContext(), SignInActivity.class);
@@ -105,5 +116,15 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Override
     public void showError(String message) {
         //MySnackBar.showError();
+    }
+
+    @Override
+    public void showCalendarMeals(List<CalenderMeal> meals) {
+
+    }
+
+    @Override
+    public void showLoading(boolean isLoading) {
+
     }
 }
