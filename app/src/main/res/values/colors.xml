@@ -7,4 +7,6 @@
     <color name="brand_green">#17AC5A</color>
     <color name="main_color">#17AC5A</color>
     <color name="red">#FF2F2F</color>
+    <color name="green_selected">#21B826</color>
+
 </resources>

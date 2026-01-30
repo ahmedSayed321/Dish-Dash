@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.dishdash.OfflineFragment;
 import com.example.dishdash.R;
 import com.example.dishdash.data.model.meals.MealCategory;
 import com.example.dishdash.presentation.presenter.search.SearchPresenterImpl;
+import com.example.dishdash.utilites.NetworkMonitor;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,6 +33,8 @@ public class SearchFragment extends Fragment implements SearchView {
     private SearchAdapter searchAdapter;
     private SearchPresenterImpl searchPresenter;
     private LottieAnimationView lottieLoading;
+    private FrameLayout frameLayout;
+    private NetworkMonitor networkMonitor;
 
     private SearchType currentSearchType = SearchType.CATEGORY;
 
@@ -50,12 +55,26 @@ public class SearchFragment extends Fragment implements SearchView {
         rvSearchResults = view.findViewById(R.id.rvSearchResults);
         lottieLoading = view.findViewById(R.id.lottieLoading);
 
+        networkMonitor = new NetworkMonitor(requireContext());
+        frameLayout = view.findViewById(R.id.errorFragmentSearch);
+
         searchAdapter = new SearchAdapter();
         rvSearchResults.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSearchResults.setAdapter(searchAdapter);
 
         searchPresenter = new SearchPresenterImpl(this);
-
+        networkMonitor = new NetworkMonitor(requireContext());
+        networkMonitor.observe(getViewLifecycleOwner(), isConnected -> {
+            if (isConnected) {
+                frameLayout.setVisibility(View.GONE);
+            } else {
+                frameLayout.setVisibility(View.VISIBLE);
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.errorFragmentSearch, new OfflineFragment())
+                        .commitAllowingStateLoss();
+            }
+        });
         chipGroupFilters.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.chipCategory) {
                 currentSearchType = SearchType.CATEGORY;

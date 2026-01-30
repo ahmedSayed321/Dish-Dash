@@ -46,6 +46,7 @@ public class FavFragment extends Fragment implements FavView {
         return view;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
