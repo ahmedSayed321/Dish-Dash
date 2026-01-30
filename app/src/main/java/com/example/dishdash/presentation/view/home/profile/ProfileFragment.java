@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.dishdash.OfflineFragment;
 import com.example.dishdash.R;
 import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
 import com.example.dishdash.auth.presentation.view.SignInActivity;
@@ -23,6 +25,7 @@ import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.repo.meals.CalenderRepo;
 import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.example.dishdash.presentation.presenter.profile.ProfilePresenter;
+import com.example.dishdash.utilites.NetworkMonitor;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -36,6 +39,9 @@ public class ProfileFragment extends Fragment implements ProfileView {
     private AuthLocalDataSource authLocalDataSource;
     private ProgressDialog progressDialog;
     private ProfilePresenter presenter;
+    private FrameLayout frameLayout;
+
+    private NetworkMonitor networkMonitor;
 
     public ProfileFragment() {
     }
@@ -54,6 +60,8 @@ public class ProfileFragment extends Fragment implements ProfileView {
         favouriteRepository = new FavouriteRepository(getContext());
         calenderRepo = new CalenderRepo(requireContext());
 
+        frameLayout = view.findViewById(R.id.errorFragment);
+
         authLocalDataSource = new AuthLocalDataSource(getContext());
         userName = view.findViewById(R.id.profileEditUsername);
         userEmail = view.findViewById(R.id.profileEditEmail);
@@ -62,7 +70,18 @@ public class ProfileFragment extends Fragment implements ProfileView {
         progressDialog.setCancelable(false);
         presenter = new ProfilePresenter(this, requireContext());
         presenter.loadUserProfile();
-
+        networkMonitor = new NetworkMonitor(requireContext());
+        networkMonitor.observe(getViewLifecycleOwner(), isConnected -> {
+            if (isConnected) {
+                frameLayout.setVisibility(View.GONE);  // <-- crash here
+            } else {
+                frameLayout.setVisibility(View.VISIBLE);
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.errorFragment, new OfflineFragment())
+                        .commitAllowingStateLoss();
+            }
+        });
         logoutButton.setOnClickListener(v -> new AlertDialog.Builder(getContext())
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to logout?")

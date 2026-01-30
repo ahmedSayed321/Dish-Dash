@@ -54,9 +54,13 @@
                 android:id="@+id/calendarView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="24dp"
-                android:theme="@style/Theme.Material3.DynamicColors.Light" />
+                android:dateTextAppearance="@style/CalendarDateText"
+                android:focusedMonthDateColor="#FFFFFF"
+                android:selectedDateVerticalBar="@color/green_selected"
+                android:selectedWeekBackgroundColor="@color/green_selected"
+                android:unfocusedMonthDateColor="#888888"
+                android:weekDayTextAppearance="@style/CalendarWeekDayText" />
+
 
             <TextView
                 android:layout_width="wrap_content"

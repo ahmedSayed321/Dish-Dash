@@ -7,6 +7,13 @@
     android:background="@color/white"
     tools:context=".presentation.view.home.profile.ProfileFragment">
 
+    <FrameLayout
+        android:id="@+id/errorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

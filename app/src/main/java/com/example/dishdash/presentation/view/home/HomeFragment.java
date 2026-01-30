@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.example.dishdash.OfflineFragment;
 import com.example.dishdash.R;
 import com.example.dishdash.data.model.meals.Category;
 import com.example.dishdash.data.model.meals.Meal;
@@ -32,6 +34,7 @@ import com.example.dishdash.presentation.presenter.random.RandomMealPresenterImp
 import com.example.dishdash.presentation.view.home.category.CategoriesRecyclerViewAdapter;
 import com.example.dishdash.presentation.view.home.category.CategoryView;
 import com.example.dishdash.presentation.view.home.random.RandomMealView;
+import com.example.dishdash.utilites.NetworkMonitor;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -47,6 +50,8 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
     private LottieAnimationView loadingAnimation;
     private Meal currentRandomMeal;
     private LinearLayout searchBar;
+    private NetworkMonitor networkMonitor;
+    private FrameLayout frameLayout;
 
     public HomeFragment() {
     }
@@ -64,7 +69,7 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
         recyclerView = view.findViewById(R.id.horizontalRecycler);
         loadingAnimation = view.findViewById(R.id.loadingAnimation2);
         cardView = view.findViewById(R.id.imageCardView);
-
+        frameLayout = view.findViewById(R.id.errorFragment);
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -74,7 +79,18 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
         randomMealPresenter = new RandomMealPresenterImpl(new RandomMealRepo(), this);
         presenter.getCategories();
         randomMealPresenter.getRandomMeal();
-
+        networkMonitor = new NetworkMonitor(requireContext());
+        networkMonitor.observe(getViewLifecycleOwner(), isConnected -> {
+            if (isConnected) {
+                frameLayout.setVisibility(View.GONE);
+            } else {
+                frameLayout.setVisibility(View.VISIBLE);
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.errorFragment, new OfflineFragment())
+                        .commitAllowingStateLoss();
+            }
+        });
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +109,7 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
             }
         });
     }
+
 
     @Override
     public void showLoading() {
