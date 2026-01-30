@@ -14,10 +14,11 @@ public class MySnackBar {
         if (view == null) return;
 
         Snackbar snackbar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT);
-        snackbar.setBackgroundTint(Color.parseColor("#20DFBF"));
+        snackbar.setBackgroundTint(Color.parseColor("#FFFFFF"));
         snackbar.setTextColor(Color.WHITE);
         snackbar.show();
     }
+
 
     public static void showError(View view, String msg) {
         if (view == null) return;

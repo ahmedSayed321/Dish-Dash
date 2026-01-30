@@ -93,6 +93,14 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
                 // signIn(email.getText().toString().trim(), password.getText().toString().trim());
             }
         });
+
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -160,15 +168,12 @@ public class SignInActivity extends AppCompatActivity implements AuthView {
         favouriteRepository.downloadFavoritesFromFirebase(
                 usId,
                 () -> runOnUiThread(() -> {
+
                     authPresenter.downloadAndSaveCalenderMeals(usId);
 
-//                    authPresenter.downloadCalenderMeals(usId, meals -> {
-//
-//                        runOnUiThread(() -> {
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
-//                        });
-//                    });
+
                 }),
                 error -> runOnUiThread(() ->
                         Toast.makeText(this, error, Toast.LENGTH_LONG).show()

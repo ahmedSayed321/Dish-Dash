@@ -1,6 +1,8 @@
 package com.example.dishdash.presentation.view.home.meals;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.dishdash.R;
+import com.example.dishdash.auth.data.data_source.local_data_source.AuthLocalDataSource;
+import com.example.dishdash.auth.presentation.view.SignInActivity;
 import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.model.meals.Ingredient;
 import com.example.dishdash.data.model.meals.Meal;
@@ -43,7 +47,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     ImageView favBtn, calenderBtn;
     boolean isFav = false;
     CalenderMeal calenderMealDto;
-
+    AuthLocalDataSource authLocalDataSource;
     YouTubePlayerView youTubePlayer;
 
     String key = "";
@@ -68,7 +72,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         youTubePlayer = view.findViewById(R.id.youtubePlayerView);
         favBtn = view.findViewById(R.id.ic_fav);
         calenderBtn = view.findViewById(R.id.calenderImageView);
-
+        authLocalDataSource = new AuthLocalDataSource(getContext());
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvIngredients.setLayoutManager(layoutManager);
@@ -81,7 +85,15 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         presenter.getMealDetails(mealId);
         presenter.isFav(mealId);
 
-        calenderBtn.setOnClickListener(v -> showDatePicker());
+        calenderBtn.setOnClickListener(v -> {
+            String userId = authLocalDataSource.getUserUid();
+            if (userId == null) {
+                showLoginAlert();
+                return;
+            }
+
+            showDatePicker();
+        });
 
         getLifecycle().addObserver(youTubePlayer);
     }
@@ -121,6 +133,12 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         rvIngredients.setAdapter(ingredientsAdapter);
 
         favBtn.setOnClickListener(btnView -> {
+            String usId = authLocalDataSource.getUserUid();
+
+            if (usId == null) {
+                showLoginAlert();
+                return;
+            }
             if (!isFav) {
                 presenter.addToFav(meal);
                 MySnackBar.showSuccess(getView(), "Meal Added Successfully");
@@ -167,6 +185,19 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
             Toast.makeText(getContext(), "Error: Meal data not loaded yet!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void showLoginAlert() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Login Required")
+                .setMessage("Please login first to use this feature.")
+                .setCancelable(true)
+                .setPositiveButton("Login", (dialog, which) -> {
+                    startActivity(new Intent(requireContext(), SignInActivity.class));
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 
     @Override
     public void showFavoriteState(boolean isFavorite) {

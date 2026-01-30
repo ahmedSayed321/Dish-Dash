@@ -69,7 +69,13 @@ public class ProfileFragment extends Fragment implements ProfileView {
         progressDialog.setMessage("Syncing your favorites...");
         progressDialog.setCancelable(false);
         presenter = new ProfilePresenter(this, requireContext());
-        presenter.loadUserProfile();
+        if (!authLocalDataSource.isGuest()) {
+            presenter.loadUserProfile();
+        } else {
+            userName.setText("");
+            userEmail.setText("");
+        }
+
         networkMonitor = new NetworkMonitor(requireContext());
         networkMonitor.observe(getViewLifecycleOwner(), isConnected -> {
             if (isConnected) {
@@ -124,11 +130,20 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
     @Override
     public void showUserName(String fullName) {
+
+        if (fullName == null) {
+            userName.setText("");
+            return;
+        }
         userName.setText(fullName);
     }
 
     @Override
     public void showUserEmail(String email) {
+        if (email == null) {
+            userEmail.setText("");
+            return;
+        }
         userEmail.setText(email);
     }
 
