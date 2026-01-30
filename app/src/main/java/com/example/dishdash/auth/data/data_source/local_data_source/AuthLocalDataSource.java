@@ -41,5 +41,9 @@ public class AuthLocalDataSource {
         sharedPreferences.edit().clear().apply();
     }
 
+    public boolean isGuest() {
+        return getUserUid() == null || getUserUid().isEmpty();
+    }
+
 
 }

@@ -87,6 +87,11 @@ public class AuthRepo {
     }
 
 
+    public boolean isGuest() {
+        return authLocalDataSource.isGuest();
+    }
+
+
     public interface AuthCallback {
         void onSuccess(String uId);
 
