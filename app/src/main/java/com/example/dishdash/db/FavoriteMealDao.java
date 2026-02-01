@@ -1,6 +1,5 @@
 package com.example.dishdash.db;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,23 +10,26 @@ import com.example.dishdash.data.model.meals.FavoriteMealEntity;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
+
 @Dao
 public interface FavoriteMealDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(FavoriteMealEntity meal);
+    Completable insert(FavoriteMealEntity meal);
 
     @Delete
-    void delete(FavoriteMealEntity meal);
+    Completable delete(FavoriteMealEntity meal);
 
     @Query("SELECT * FROM favorite_meals")
-    LiveData<List<FavoriteMealEntity>> getAllFavorites();
+    Observable<List<FavoriteMealEntity>> getAllFavorites();
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_meals WHERE id = :mealId)")
     boolean isFavorite(String mealId);
 
     @Query("DELETE FROM favorite_meals")
-    void deleteAllFavorites();
+    Completable deleteAllFavorites();
 
     @Query("SELECT * FROM favorite_meals")
     List<FavoriteMealEntity> getAllFavoritesOnce();

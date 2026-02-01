@@ -9,7 +9,6 @@ import android.widget.CalendarView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,12 +67,14 @@ public class CalenderMealFragment extends Fragment implements CalenderMealView {
         cal.set(year, month, dayOfMonth, 23, 59, 59);
         long endDay = cal.getTimeInMillis();
 
-        presenter.getAllCalenderMeal(startDay, endDay).observe(getViewLifecycleOwner(), new Observer<List<CalenderMeal>>() {
-            @Override
-            public void onChanged(List<CalenderMeal> calenderMeals) {
-                adapter.setCalenderMeals(calenderMeals);
-            }
-        });
+        presenter.getAllCalenderMeal(startDay, endDay);
+
+//        presenter.getAllCalenderMeal(startDay, endDay).observe(getViewLifecycleOwner(), new Observer<List<CalenderMeal>>() {
+//            @Override
+//            public void onChanged(List<CalenderMeal> calenderMeals) {
+//                adapter.setCalenderMeals(calenderMeals);
+//            }
+//        });
     }
 
     @Override

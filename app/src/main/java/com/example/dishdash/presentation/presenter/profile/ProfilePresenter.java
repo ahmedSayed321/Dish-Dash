@@ -6,10 +6,17 @@ import com.example.dishdash.auth.data.data_source.remote_data_source.AuthDataSou
 import com.example.dishdash.auth.data.repo.AuthRepo;
 import com.example.dishdash.data.model.meals.CalenderMeal;
 import com.example.dishdash.data.repo.meals.CalenderRepo;
+import com.example.dishdash.data.repo.meals.local.FavouriteRepository;
 import com.example.dishdash.data.repo.meals.remote.FirebaseCalenderRepository;
 import com.example.dishdash.presentation.view.home.profile.ProfileView;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ProfilePresenter {
 
@@ -17,12 +24,14 @@ public class ProfilePresenter {
     private final ProfileView view;
     private final FirebaseCalenderRepository firebaseCalenderRepo;
     private final CalenderRepo calenderRepo;
+    private final FavouriteRepository favRepo;
 
     public ProfilePresenter(ProfileView view, Context context) {
         this.view = view;
         authRepo = new AuthRepo(context);
         firebaseCalenderRepo = new FirebaseCalenderRepository();
         calenderRepo = new CalenderRepo(context);
+        favRepo = new FavouriteRepository(context);
 
     }
 
@@ -79,6 +88,28 @@ public class ProfilePresenter {
                     }
             );
         }).start();
+    }
+
+    public void deleteAllFav() {
+        favRepo.deleteAllFav()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
     }
 
 

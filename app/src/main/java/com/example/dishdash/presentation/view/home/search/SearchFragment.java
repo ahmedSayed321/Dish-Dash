@@ -81,7 +81,7 @@ public class SearchFragment extends Fragment implements SearchView {
                 etSearch.setHint("Search by category ");
             } else if (checkedId == R.id.chipCountry) {
                 currentSearchType = SearchType.AREA;
-                etSearch.setHint("Search by area ");
+                etSearch.setHint("Search by country ");
             } else if (checkedId == R.id.chipIngredient) {
                 currentSearchType = SearchType.INGREDIENT;
                 etSearch.setHint("Search by ingredient ");

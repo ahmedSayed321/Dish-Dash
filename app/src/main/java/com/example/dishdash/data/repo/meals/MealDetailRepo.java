@@ -1,10 +1,9 @@
 package com.example.dishdash.data.repo.meals;
 
 import com.example.dishdash.data.datasources.meals.remote_data_source.meal_detail.MealDetailsRemoteDataSource;
-import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
-import com.example.dishdash.data.model.meals.Meal;
+import com.example.dishdash.data.model.meals.MealResponse;
 
-import java.util.List;
+import io.reactivex.rxjava3.core.Single;
 
 public class MealDetailRepo {
 
@@ -14,9 +13,14 @@ public class MealDetailRepo {
         mealDetailsRemoteDataSource = new MealDetailsRemoteDataSource();
     }
 
-    public void getMealDetailsById(String id, RandomMealRemoteDataSource.RandomMealNetworkResponse<List<Meal>> networkResponse) {
 
-        mealDetailsRemoteDataSource.getMealDetails(id, networkResponse);
-
+    public Single<MealResponse> getMealDetailsById(String id) {
+        return mealDetailsRemoteDataSource.getMealDetails(id);
     }
+
+//    public void getMealDetailsById(String id, RandomMealRemoteDataSource.RandomMealNetworkResponse<List<Meal>> networkResponse) {
+//
+//        mealDetailsRemoteDataSource.getMealDetails(id, networkResponse);
+//
+//    }
 }

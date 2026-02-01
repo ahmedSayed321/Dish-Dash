@@ -4,14 +4,15 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.dishdash.data.model.meals.FavoriteMealEntity;
 import com.example.dishdash.db.AppDatabase;
 import com.example.dishdash.db.FavoriteMealDao;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class FavouriteLocalDataSource {
 
@@ -21,15 +22,19 @@ public class FavouriteLocalDataSource {
         favDao = AppDatabase.getInstance(ctx).favoriteMealDao();
     }
 
-    public void insertFavorite(FavoriteMealEntity meal) {
-        new Thread(() -> favDao.insert(meal)).start();
+    public Completable insertFavorite(FavoriteMealEntity meal) {
+
+        return favDao.insert(meal);
+
+        //new Thread(() -> favDao.insert(meal)).start();
     }
 
-    public void deleteFavorite(FavoriteMealEntity meal) {
-        new Thread(() -> favDao.delete(meal)).start();
+    public Completable deleteFavorite(FavoriteMealEntity meal) {
+        return favDao.delete(meal);
+        //new Thread(() -> favDao.delete(meal)).start();
     }
 
-    public LiveData<List<FavoriteMealEntity>> getAllFavorites() {
+    public Observable<List<FavoriteMealEntity>> getAllFavorites() {
         return favDao.getAllFavorites();
     }
 
@@ -42,8 +47,9 @@ public class FavouriteLocalDataSource {
 
     }
 
-    public void clearFavorites() {
-        new Thread(favDao::deleteAllFavorites).start();
+    public Completable clearFavorites() {
+        return favDao.deleteAllFavorites();
+        //new Thread(favDao::deleteAllFavorites).start();
     }
 
     public List<FavoriteMealEntity> getAllFavoritesOnce() {

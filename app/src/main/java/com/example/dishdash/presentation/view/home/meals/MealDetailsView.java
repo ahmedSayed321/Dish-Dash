@@ -12,6 +12,7 @@ public interface MealDetailsView {
 
     void hideLoading();
 
+
     void showError(String message);
 
 

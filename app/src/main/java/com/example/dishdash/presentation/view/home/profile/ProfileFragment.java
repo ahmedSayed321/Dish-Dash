@@ -41,6 +41,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     private ProfilePresenter presenter;
     private FrameLayout frameLayout;
 
+
     private NetworkMonitor networkMonitor;
 
     public ProfileFragment() {
@@ -108,6 +109,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
                     progressDialog.dismiss();
                     presenter.uploadLocalCalenderMeals(userId);
                     authLocalDataSource.clearUser();
+                    // presenter.deleteAllFav();
                     favouriteRepository.deleteAllFav();
                     calenderRepo.deleteAllCalenderMeals();
                     Log.i("ProfileFragment", "logoutUser: All Cal Meals Deleted Successfully");

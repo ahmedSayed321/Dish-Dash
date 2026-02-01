@@ -1,6 +1,7 @@
 package com.example.dishdash.presentation.view.home.fav;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class FavFragment extends Fragment implements FavView {
     public void onStart() {
         super.onStart();
         presenter.getFavorites();
+        Log.i("Fav Fragment", "onStart: data fetched");
     }
 
 

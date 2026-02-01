@@ -9,6 +9,13 @@ import com.example.dishdash.data.model.meals.CalenderMeal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class CalenderRepo {
 
     private final CalenderLocalDataSource calenderLocalDataSource;
@@ -18,12 +25,12 @@ public class CalenderRepo {
     }
 
 
-    public void deleteCalenderMeal(CalenderMeal calenderMeal) {
-        calenderLocalDataSource.deleteCalenderMeal(calenderMeal);
+    public Completable deleteCalenderMeal(CalenderMeal calenderMeal) {
+        return calenderLocalDataSource.deleteCalenderMeal(calenderMeal);
     }
 
-    public void insertCalenderMeal(CalenderMeal calenderMeal) {
-        calenderLocalDataSource.insertCalenderMeal(calenderMeal);
+    public Completable insertCalenderMeal(CalenderMeal calenderMeal) {
+        return calenderLocalDataSource.insertCalenderMeal(calenderMeal);
     }
 
     public LiveData<List<CalenderMeal>> getAllCalenderMeals(long start, long end) {
@@ -31,7 +38,25 @@ public class CalenderRepo {
     }
 
     public void deleteAllCalenderMeals() {
-        calenderLocalDataSource.deleteAllCalenderMeals();
+        calenderLocalDataSource.deleteAllCalenderMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
     }
 
     public List<CalenderMeal> getAllCalenderMealsOnce() {
