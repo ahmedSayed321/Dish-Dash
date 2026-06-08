@@ -14,7 +14,7 @@ public class MySnackBar {
         if (view == null) return;
 
         Snackbar snackbar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT);
-        snackbar.setBackgroundTint(Color.parseColor("#FFFFFF"));
+        snackbar.setBackgroundTint(Color.parseColor("#21B826"));
         snackbar.setTextColor(Color.WHITE);
         snackbar.show();
     }

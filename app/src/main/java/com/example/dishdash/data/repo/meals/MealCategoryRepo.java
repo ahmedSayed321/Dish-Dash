@@ -1,10 +1,9 @@
 package com.example.dishdash.data.repo.meals;
 
 import com.example.dishdash.data.datasources.meals.remote_data_source.category.MealCategoryRemoteDataSource;
-import com.example.dishdash.data.datasources.meals.remote_data_source.random.RandomMealRemoteDataSource;
-import com.example.dishdash.data.model.meals.MealCategory;
+import com.example.dishdash.data.model.meals.MealCategoryResponse;
 
-import java.util.List;
+import io.reactivex.rxjava3.core.Single;
 
 public class MealCategoryRepo {
 
@@ -14,19 +13,24 @@ public class MealCategoryRepo {
         mealCategoryRemoteDataSource = new MealCategoryRemoteDataSource();
     }
 
-    public void getMealCategories(RandomMealRemoteDataSource.RandomMealNetworkResponse networkResponse, String category) {
-        mealCategoryRemoteDataSource.getMealCategories(new RandomMealRemoteDataSource.RandomMealNetworkResponse<List<MealCategory>>() {
 
-            @Override
-            public void onSuccess(List<MealCategory> meals) {
-                networkResponse.onSuccess(meals);
+    public Single<MealCategoryResponse> getMealCategories(String categoryName) {
+        return mealCategoryRemoteDataSource.getMealCategories(categoryName);
 
-            }
-
-            @Override
-            public void onFailure(String message) {
-                networkResponse.onFailure(message);
-            }
-        }, category);
     }
+//    public void getMealCategories(RandomMealRemoteDataSource.RandomMealNetworkResponse networkResponse, String category) {
+//        mealCategoryRemoteDataSource.getMealCategories(new RandomMealRemoteDataSource.RandomMealNetworkResponse<List<MealCategory>>() {
+//
+//            @Override
+//            public void onSuccess(List<MealCategory> meals) {
+//                networkResponse.onSuccess(meals);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                networkResponse.onFailure(message);
+//            }
+//        }, category);
+//    }
 }

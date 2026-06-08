@@ -10,6 +10,8 @@ import com.example.dishdash.db.CalenderMealDao;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+
 public class CalenderLocalDataSource {
 
     private final CalenderMealDao calenderMealDao;
@@ -19,27 +21,30 @@ public class CalenderLocalDataSource {
     }
 
 
-    public void insertCalenderMeal(CalenderMeal calenderMeal) {
-        new Thread(() -> {
-            calenderMealDao.addCalenderMeal(calenderMeal);
-        }).start();
+    public Completable insertCalenderMeal(CalenderMeal calenderMeal) {
+        return calenderMealDao.addCalenderMeal(calenderMeal);
+//        new Thread(() -> {
+//            calenderMealDao.addCalenderMeal(calenderMeal);
+//        }).start();
     }
 
-    public void deleteCalenderMeal(CalenderMeal calenderMeal) {
-        new Thread(() -> {
-            calenderMealDao.deleteCalenderMeal(calenderMeal);
-        }).start();
+    public Completable deleteCalenderMeal(CalenderMeal calenderMeal) {
+        return calenderMealDao.deleteCalenderMeal(calenderMeal);
+//        new Thread(() -> {
+//            calenderMealDao.deleteCalenderMeal(calenderMeal);
+//        }).start();
     }
 
     public LiveData<List<CalenderMeal>> getAllMeals(long startDay, long endDay) {
         return calenderMealDao.getAllCalenderMeal(startDay, endDay);
     }
 
-    public void deleteAllCalenderMeals() {
-        new Thread(() -> {
-            calenderMealDao.deleteAllCalenderMeals();
-
-        }).start();
+    public Completable deleteAllCalenderMeals() {
+        return calenderMealDao.deleteAllCalenderMeals();
+//        new Thread(() -> {
+//            calenderMealDao.deleteAllCalenderMeals();
+//
+//        }).start();
     }
 
     public List<CalenderMeal> getAllCalenderMealsOnce() {

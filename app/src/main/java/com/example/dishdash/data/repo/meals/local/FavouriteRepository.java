@@ -3,8 +3,7 @@ package com.example.dishdash.data.repo.meals.local;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-
-import androidx.lifecycle.LiveData;
+import android.util.Log;
 
 import com.example.dishdash.data.datasources.meals.local_data_source.FavouriteLocalDataSource;
 import com.example.dishdash.data.model.meals.FavoriteMealEntity;
@@ -12,6 +11,9 @@ import com.example.dishdash.data.repo.meals.remote.FirebaseFavouriteRepository;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class FavouriteRepository {
 
@@ -23,15 +25,16 @@ public class FavouriteRepository {
         remoteDataSource = new FirebaseFavouriteRepository();
     }
 
-    public void addToFavorites(FavoriteMealEntity meal) {
-        localDataSource.insertFavorite(meal);
+    public Completable addToFavorites(FavoriteMealEntity meal) {
+        return localDataSource.insertFavorite(meal);
     }
 
-    public void removeFromFavorites(FavoriteMealEntity meal) {
-        localDataSource.deleteFavorite(meal);
+    public Completable removeFromFavorites(FavoriteMealEntity meal) {
+        return localDataSource.deleteFavorite(meal);
     }
 
-    public LiveData<List<FavoriteMealEntity>> getAllFavorites() {
+    public Observable<List<FavoriteMealEntity>> getAllFavorites() {
+        Log.i("Fav Repo", "getAllFavorites: ");
         return localDataSource.getAllFavorites();
     }
 
@@ -40,8 +43,8 @@ public class FavouriteRepository {
         localDataSource.isMealFavorite(mealId, callback);
     }
 
-    public void deleteAllFav() {
-        localDataSource.clearFavorites();
+    public Completable deleteAllFav() {
+        return localDataSource.clearFavorites();
 
     }
 

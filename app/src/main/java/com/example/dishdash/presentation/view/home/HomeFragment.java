@@ -100,12 +100,13 @@ public class HomeFragment extends Fragment implements CategoryView, RandomMealVi
             }
         });
 
-        searchBar = view.findViewById(R.id.SearchBar);
+        searchBar = view.findViewById(R.id.SearchBarTitle);
 
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.searchFragment);
             }
         });
     }

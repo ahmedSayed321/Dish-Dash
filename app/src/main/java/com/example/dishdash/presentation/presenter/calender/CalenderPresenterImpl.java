@@ -9,6 +9,9 @@ import com.example.dishdash.data.repo.meals.CalenderRepo;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class CalenderPresenterImpl implements CalenderPresenter {
 
     private final CalenderRepo calenderRepo;
@@ -19,8 +22,19 @@ public class CalenderPresenterImpl implements CalenderPresenter {
 
     @Override
     public void deleteCalenderMeal(CalenderMeal calenderMeal) {
-        calenderRepo.deleteCalenderMeal(calenderMeal);
+        calenderRepo.deleteCalenderMeal(calenderMeal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
+
+
+//    public @NonNull Disposable getAllCalenderMeal(long start, long end) {
+//        return  calenderRepo.getAllCalenderMeals(start, end)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe();
+//    }
 
     @Override
     public LiveData<List<CalenderMeal>> getAllCalenderMeal(long start, long end) {
