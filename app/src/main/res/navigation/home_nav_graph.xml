@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dishdash.presentation.view.home.HomeFragment"
+
+        android:label="Home">
+        <action
+            android:id="@+id/action_homeFragment_to_allCategoriesFragment"
+            app:destination="@id/allCategoriesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="com.example.dishdash.presentation.view.home.fav.FavFragment"
+        android:label="Favorite">
+        <action
+            android:id="@+id/action_favFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.dishdash.presentation.view.home.profile.ProfileFragment"
+        android:label="Profile" />
+    <fragment
+        android:id="@+id/allCategoriesFragment"
+        android:name="com.example.dishdash.presentation.view.all_categories.AllCategoriesFragment"
+        android:label="fragment_all_categories"
+        tools:layout="@layout/fragment_all_categories">
+        <action
+            android:id="@+id/action_allCategoriesFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesDetailsFragment2"
+        android:name="com.example.dishdash.presentation.view.home.meals.MealDetailsFragment"
+        android:label="fragment_categories_details"
+        tools:layout="@layout/fragment_categories_details">
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.dishdash.presentation.view.home.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_categoriesDetailsFragment2"
+            app:destination="@id/categoriesDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderFragment2"
+        android:name="com.example.dishdash.presentation.view.calender.CalenderMealFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" />
+</navigation>
